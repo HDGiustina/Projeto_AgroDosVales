@@ -1,17 +1,32 @@
 <template>
-  <q-header elevated class="bg-white q-mb-md q-pt-md">
-    <q-toolbar>
-      <q-toolbar-title class="q-mb-md">
-        <q-img src="../../assets/agroVales.png" fit="contain" width="250px" loading="eager"/>
-        <span v-if="ambiente"
-              class="q-mx-md animated-notice"
-              style="border: rgba(0,102,52,0.54) solid 1px;
-             border-radius: 20px;
-             padding: 5px;
-             color: white;
-             font-weight: 600;"
-        >Este é o ambiente de Testes</span>
+  <q-header elevated class="bg-white q-mb-md">
+    <q-toolbar class="header">
+      <q-toolbar-title class="" style="flex: none;">
+        <q-img src="../../assets/Logo_media.png" fit="contain" width="250px" loading="eager"/>
       </q-toolbar-title>
+      <nav>
+          <buttonComponent
+            :class="['btnHeader', (route.name!='bioativas') ? '' : 'text-bold']"
+            label="Plantas Bioativas"
+            :color="route.name!='bioativas' ? 'dark' : 'primary'"
+            :flat="true"
+            @click="navegar('bioativas')"
+          />
+          <buttonComponent
+            :class="['btnHeader', (route.name!='eventos') ? '' : 'text-bold']"
+            label="Eventos"
+            :color="route.name!='eventos' ? 'dark' : 'primary'"
+            :flat="true"
+            @click="navegar('eventos')"
+          />
+          <buttonComponent
+            :class="['btnHeader', !(route.name =='educacao' || route.name =='readPdf') ? '' : 'text-bold']"
+            label="Educação"
+            :color="!(route.name =='educacao' || route.name =='readPdf') ? 'dark' : 'primary'"
+            :flat="true"
+            @click="navegar('educacao')"
+          />
+        </nav>
       <div v-if="usuario" class=" row q-gutter-x-md flex flex-center q-mr-sm">
         <q-input
           v-model="buscar"
@@ -86,71 +101,24 @@
       </div>
       <div v-else class="q-gutter-x-md">
         <buttonComponent
-          class="btnHeader"
-          label="Plantas Bioativas"
-          :outline="route.name!='bioativas'"
-          @click="navegar('bioativas')"
-        />
-        <buttonComponent
-          class="btnHeader"
-          label="Eventos"
-          :outline="route.name!='eventos'"
-          @click="navegar('eventos')"
-        />
-        <buttonComponent
-          class="btnHeader"
-          label="Educação"
-          :outline="!(route.name =='educacao' || route.name =='readPdf')"
-          @click="navegar('educacao')"
-        />
-        <buttonComponent
-          class="btnHeader"
+          class="btnHeader text-bold"
           label="Entrar"
-          :outline="route.name!='login'"
+          :outline="false"
           @click="navegar('login')"
         />
-        <q-btn flat style="padding-left: 0">
-          <q-icon name="mdi-menu" size="35px" style="color: #5A645B"/>
-          <q-menu
-            transition-hide="flip-right"
-            transition-show="flip-left"
-            :offset="[10, 5]"
-            self="top middle"
-            style="background-color: #7BB542; border-radius: 20px"
-          >
-            <q-list style="min-width: 200px">
-              <q-item style="color: white" class="cursor-pointer">
-                <q-item-section @click="navegar('login')">
-                  Fazer login
-                </q-item-section>
-              </q-item>
-              <q-separator size="1px" color="white"/>
-              <q-item style="color: white" class="cursor-pointer">
-                <q-item-section @click="navegar('cadastro')">
-                  Fazer cadastro
-                </q-item-section>
-              </q-item>
-              <q-separator size="1px" color="white"/>
-              <q-item style="color: white" class="cursor-pointer">
-                <q-item-section @click="bottom">
-                  Entrar em contato
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-menu>
-        </q-btn>
       </div>
     </q-toolbar>
   </q-header>
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar'
 import { defineComponent, ref } from 'vue'
-import buttonComponent from 'src/components/Button.vue'
 import { useRoute, useRouter } from 'vue-router'
+import buttonComponent from 'src/components/Button.vue'
+
 import { clearUser, globalUser, updateUser } from 'src/composables/user'
 import { SubMenuInterface, UserInterface } from 'src/interfaces/interfaces'
-import { useQuasar } from 'quasar'
 import menus from 'src/router/menu'
 
 export default defineComponent({
@@ -210,8 +178,7 @@ export default defineComponent({
         }
       }
     }
-    console.log('usuario', usuario)
-    console.log('valida usr', !!usuario)
+
     const logout = () => {
       for (const i in $q.cookies.getAll()) {
         $q.cookies.remove(i)
@@ -257,11 +224,17 @@ export default defineComponent({
   }
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .animated-notice {
   animation: blink 2s infinite;
 }
 
 .btnHeader {
-  border-radius: 13px;
+  border-radius: 8px;
 }
 </style>

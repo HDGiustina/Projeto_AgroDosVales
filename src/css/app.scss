@@ -1,4 +1,11 @@
 // app global css in SCSS form
+:root {
+  --color-primary   : #4CAF50;
+  --color-secondary : #2E7D32;
+  --color-terciary  : #E8F5E9; 
+  --color-quarternary  : #F1F8E9; 
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;

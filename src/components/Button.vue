@@ -36,7 +36,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: 'light-green-6'
+      default: 'primary'
     },
     size: {
       type: String,

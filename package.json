@@ -1,8 +1,8 @@
 {
-  "name": "inovars",
+  "name": "agrodosvales",
   "version": "0.0.1",
-  "description": "Projeto frontend InovaRS",
-  "productName": "InovaRS",
+  "description": "Projeto Agro Dos Vales - Conectando pessoas do campo à indústria",
+  "productName": "AgroDosVales",
   "author": "SOHR Tech for Business",
   "private": true,
   "scripts": {
