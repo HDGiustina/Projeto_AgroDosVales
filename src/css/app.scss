@@ -1,9 +1,12 @@
 // app global css in SCSS form
 :root {
-  --color-primary   : #4CAF50;
-  --color-secondary : #2E7D32;
-  --color-terciary  : #E8F5E9; 
-  --color-quarternary  : #F1F8E9; 
+  --color-primary     : #4CAF50;
+  --color-secondary   : #2E7D32;
+  --color-terciary    : #E8F5E9; 
+  --color-quaternary  : #F1F8E9; 
+
+  --color-dark        : #171a1f;
+
 }
 
 body {
