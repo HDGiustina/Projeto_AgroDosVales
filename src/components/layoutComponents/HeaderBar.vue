@@ -1,5 +1,5 @@
 <template>
-  <q-header elevated class="bg-white q-mb-md">
+  <q-header class="bg-white q-mb-md header-component">
     <q-toolbar class="header">
       <q-toolbar-title class="" style="flex: none;">
         <q-img src="../../assets/Logo_media.png" fit="contain" width="250px" loading="eager"/>
@@ -108,6 +108,48 @@
         />
       </div>
     </q-toolbar>
+    <template class="header-mobile">
+      <q-toolbar class="q-my-xs" >
+        <q-btn flat @click="openMenu = !openMenu" round dense icon="menu" color="primary" style="font-size: 18px;"/>
+        <q-toolbar-title class="q-pa-none mobile-toolbar" >
+          <q-img src="../../assets/Logo_pequena.png" fit="contain" loading="eager" class="header-mobile-img"/>
+          <h1 class="mobile-title"><b>Agro</b> dos Vales</h1>
+        </q-toolbar-title>
+      </q-toolbar>
+      <q-drawer
+          v-model="openMenu"
+          elevated
+          class="bg-white text-dark"
+        >
+          <q-scroll-area class="fit">
+            <q-icon name="close" color="dark" class="button-close" @click="openMenu = !openMenu"/>
+
+            <div class="q-pb-md q-px-sm">
+              <q-img src="../../assets/Logo_grande.png" fit="contain" loading="eager" class="drawer-img"/>
+            </div>
+
+            <q-list>
+              <template v-for="(menuItem, index) in menuMobile" :key="index">
+                <q-item clickable :active="(route.name == menuItem.link) " @click="navegar(menuItem.link)" >
+                  <q-item-section avatar>
+                    <q-img :src="menuItem.icon" width="20px"/>
+                  </q-item-section>
+                  <q-item-section>
+                    {{ menuItem.label }}
+                  </q-item-section>
+                </q-item>
+                <q-separator :key="'sep' + index"  v-if="menuItem.separator" />
+              </template>
+
+              <q-item clickable  class="item-entrar" @click="navegar('login')">
+                  <q-item-section >
+                    <p class="item-entrar-text" >Entrar</p>
+                  </q-item-section>
+                </q-item>
+            </q-list>
+          </q-scroll-area>
+        </q-drawer>
+    </template>
   </q-header>
 </template>
 
@@ -120,6 +162,9 @@ import buttonComponent from 'src/components/Button.vue'
 import { clearUser, globalUser, updateUser } from 'src/composables/user'
 import { SubMenuInterface, UserInterface } from 'src/interfaces/interfaces'
 import menus from 'src/router/menu'
+import Home from '../../assets/icons/Home.svg'
+import School from '../../assets/icons/school.svg'
+import Calendar from '../../assets/icons/calendar.svg'
 
 export default defineComponent({
   name: 'HeaderBar',
@@ -134,16 +179,15 @@ export default defineComponent({
     updateUser()
     const usuario: UserInterface | null = globalUser.value
     const buscar = ref('')
+    const openMenu = ref(false)
+    const menuMobile = [
+      { label: 'Plantas Bioativas', icon: Home, separator: true, link: 'bioativas' },
+      { label: 'Eventos', icon: Calendar, separator: true, link: 'eventos' },
+      { label: 'Educação', icon: School, separator: false, link: 'educacao' }
+    ]
 
     const navegar = (tipo: string) => {
       router.push({ name: tipo })
-    }
-
-    const bottom = () => {
-      const contatoElement = document.getElementById('contato')
-      if (contatoElement) {
-        contatoElement.scrollIntoView({ behavior: 'smooth' })
-      }
     }
 
     const buscarMenu = () => {
@@ -198,18 +242,26 @@ export default defineComponent({
       router.push({ name: 'login' })
     }
     return {
+      openMenu,
       usuario,
       buscar,
       buscarMenu,
       logout,
       ambiente,
       navegar,
-      bottom,
-      route
+      route,
+      menuMobile
     }
   }
 })
 </script>
+
+<style>
+.q-item.q-router-link--active {
+  background-color: var(--color-quaternary);
+  font-weight: bold;
+}
+</style>
 
 <style scoped>
 @keyframes blink {
@@ -224,10 +276,18 @@ export default defineComponent({
   }
 }
 
+.header-component {
+  border-bottom: 1px solid #efefef;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header-mobile {
+  display: none;
 }
 
 .animated-notice {
@@ -236,5 +296,59 @@ export default defineComponent({
 
 .btnHeader {
   border-radius: 8px;
+}
+
+.item-entrar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--color-terciary);
+  color: var(--color-primary);
+  padding: 18px;
+  text-align: center;
+}
+
+.item-entrar-text {
+  margin: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.button-close {
+  font-size: 28px;
+  margin: 10px 0 0 ;
+  width: 94%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    display: none;
+  }
+
+  .header-mobile {
+    display: block;
+  }
+  .header-mobile-img{
+    max-width: 50px;
+  }
+  .mobile-toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-title {
+    font-size: 18px;
+    color: var(--color-dark);
+    line-height: normal;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .mobile-title{
+    display: none;
+  }
 }
 </style>
