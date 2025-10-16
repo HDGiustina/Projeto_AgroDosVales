@@ -1,5 +1,5 @@
 <template>
-  <q-footer class="flex" style="background: white; display: grid;">
+  <q-footer class="flex" style="background: white; z-index: auto;">
       <q-toolbar class="q-my-lg footer-container">
         <q-toolbar-title class="q-mb-md footer-logo">
             <q-img src="../../assets/Logo_grande.png" fit="contain" loading="eager" class="footer-image"/>
