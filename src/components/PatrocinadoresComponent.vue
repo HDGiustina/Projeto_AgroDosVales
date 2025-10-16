@@ -20,12 +20,12 @@
             :key="cardIndex"
             class="col"
           >
-          <q-img
-            loading="eager"
-            :src="card.logo"
-            fit="contain"
-            class="carousel_image"
-          />
+            <q-img
+              loading="eager"
+              :src="card.logo"
+              fit="contain"
+              class="carousel_image"
+            />
           </div>
         </div>
       </q-carousel-slide>
@@ -34,44 +34,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, reactive } from 'vue'
+import { defineComponent, ref, onMounted, reactive, watch } from 'vue'
 import { PatrocinadoresInterface } from 'src/interfaces/interfaces'
-import { date, useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 import PatrocinadoresService from '../../services/patrocinadoresService'
 
 export default defineComponent({
   name: 'PatrocinadoresComponent',
   setup () {
     const slide = ref('slide0')
-    const loading = ref(false)
-    const groupedPatrocinadores = ref<Array<PatrocinadoresInterface[]>>()
+    const groupedPatrocinadores = ref<Array<PatrocinadoresInterface[]>>([])
     let patrocinadoresCaroussel = reactive<PatrocinadoresInterface[]>([])
     const $q = useQuasar()
 
-    const getPatrocinadores = () => {
-      loading.value = true
-
-      const atualizacoes = PatrocinadoresService.getAll()
-
-      atualizacoes.then(response => {
-        if (response.status === 200) {
-          patrocinadoresCaroussel = response.data
-          groupedPatrocinadores.value = computedPatrocinadores(patrocinadoresCaroussel)
-        }
-      }).catch(erro => {
-        $q.notify({
-          message: erro.message,
-          color: 'negative'
-        })
-      })
+    const getGroupSize = () => {
+      if ($q.screen.lt.sm) return 1
+      if ($q.screen.lt.md) return 3
+      if ($q.screen.lt.lg) return 4
+      return 6
     }
 
-    onMounted(() => {
-      getPatrocinadores()
-    })
-
     const computedPatrocinadores = (cards: PatrocinadoresInterface[]): Array<PatrocinadoresInterface[]> => {
-      const groupSize = 6
+      const groupSize = getGroupSize()
       const result = []
       for (let i = 0; i < cards.length; i += groupSize) {
         result.push(cards.slice(i, i + groupSize))
@@ -79,10 +63,34 @@ export default defineComponent({
       return result
     }
 
+    const getPatrocinadores = () => {
+      PatrocinadoresService.getAll()
+        .then(response => {
+          if (response.status === 200) {
+            patrocinadoresCaroussel = response.data
+            groupedPatrocinadores.value = computedPatrocinadores(patrocinadoresCaroussel)
+          }
+        })
+        .catch(erro => {
+          $q.notify({
+            message: erro.message,
+            color: 'negative'
+          })
+        })
+    }
+
+    // Atualiza o número de itens por slide quando a tela muda de tamanho
+    watch(() => $q.screen.name, () => {
+      groupedPatrocinadores.value = computedPatrocinadores(patrocinadoresCaroussel)
+    })
+
+    onMounted(() => {
+      getPatrocinadores()
+    })
+
     return {
       slide,
-      groupedPatrocinadores,
-      date
+      groupedPatrocinadores
     }
   }
 })
@@ -97,23 +105,42 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
 }
+
 .patrocinadores_main h3 {
   font-size: 32px;
   font-weight: bold;
   line-height: normal;
 }
+
 .patrocinadores_main_carousel {
   width: 100%;
   height: auto;
 }
-.carousel_slide, .carousel_slide div {
+
+.carousel_slide,
+.carousel_slide div {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 20px;
 }
+
 .carousel_image {
   width: 170px;
   height: 170px;
-  padding: 1rem;
+}
+@media screen and (max-width: 880px) {
+  .patrocinadores_main {
+    padding: 3rem 1rem;
+  }
+
+  .patrocinadores_main h3 {
+    font-size: 24px;
+  }
+
+  .carousel_image {
+    width: 120px;
+    height: 120px;
+  }
 }
 </style>
