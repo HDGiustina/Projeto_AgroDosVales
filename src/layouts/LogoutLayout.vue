@@ -3,7 +3,7 @@
     <HeaderBar/>
     <q-page-container>
       <router-view />
-      <PatrocinadoreComponent style="height: 20vh" class="flex flex-center"/>
+      <PatrocinadoreComponent/>
     </q-page-container>
     <FooterBar id="contato" />
   </q-layout>

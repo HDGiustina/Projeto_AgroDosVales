@@ -46,7 +46,7 @@ export default defineComponent({
     font-size: 16px;
     color: var(--color-gray);
     text-align: center;
-    line-height: 1.5;   
+    line-height: 1.5;
     max-width: 700px;
 }
 
@@ -75,7 +75,7 @@ export default defineComponent({
     .bannerConceito {
         padding: 3rem 1.5rem;
     }
-    .bannerConceito_title { 
+    .bannerConceito_title {
         gap: 0.2rem;
     }
 }

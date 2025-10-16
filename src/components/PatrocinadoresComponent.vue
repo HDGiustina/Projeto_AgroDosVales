@@ -1,41 +1,36 @@
 <template>
-  <div>
+  <section class="patrocinadores_main">
+    <h3>Nossos Parceiros</h3>
     <q-carousel
-      height="30vh"
-      style="width: 80vw;"
       v-model="slide"
       arrows
-      prev-icon="arrow_left"
-      next-icon="arrow_right"
-      control-color="black"
+      control-color="primary"
+      swipeable
       :slides-per-page="1"
-      class="q-pb-xl"
+      class="patrocinadores_main_carousel"
     >
       <q-carousel-slide
         v-for="(cardGroup, index) in groupedPatrocinadores"
         :key="index"
         :name="'slide' + index"
-        style="padding-top: 0; padding-bottom: 0"
       >
-        <div class="row">
+        <div class="row carousel_slide">
           <div
             v-for="(card, cardIndex) in cardGroup"
             :key="cardIndex"
             class="col"
-            style="height: 100%"
           >
           <q-img
             loading="eager"
             :src="card.logo"
             fit="contain"
-            class="q-mb-sm"
-            style="height: 17vh; width: 10vw"
+            class="carousel_image"
           />
           </div>
         </div>
       </q-carousel-slide>
     </q-carousel>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -92,3 +87,33 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.patrocinadores_main {
+  max-width: var(--limit-page-width);
+  margin: auto;
+  padding: 5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.patrocinadores_main h3 {
+  font-size: 32px;
+  font-weight: bold;
+  line-height: normal;
+}
+.patrocinadores_main_carousel {
+  width: 100%;
+  height: auto;
+}
+.carousel_slide, .carousel_slide div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.carousel_image {
+  width: 170px;
+  height: 170px;
+  padding: 1rem;
+}
+</style>
