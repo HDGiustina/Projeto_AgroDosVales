@@ -19,9 +19,7 @@
       </div>
     </div>
     <search-component/>
-    <div v-if="!user.id">
-      <cadastrar-component/>
-    </div>
+    <cadastrar-component/>
   </q-page>
 </template>
 
