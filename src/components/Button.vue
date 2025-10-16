@@ -15,6 +15,7 @@
     :type="type"
     :form="form"
     @click="$emit('click')"
+    class="btn-default"
   >
     <q-tooltip v-if="tooltip">{{ tooltip }}</q-tooltip>
   </q-btn>
@@ -99,3 +100,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.btn-default {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+</style>
