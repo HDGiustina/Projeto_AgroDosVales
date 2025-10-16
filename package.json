@@ -1,6 +1,6 @@
 {
   "name": "agrodosvales",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Projeto Agro Dos Vales - Conectando pessoas do campo à indústria",
   "productName": "Agro Dos Vales",
   "author": "SOHR Tech for Business",
@@ -40,7 +40,7 @@
     "typescript": "^4.5.4"
   },
   "engines": {
-    "node": "^18 || ^16 || ^14.19",
+    "node": "^22 || ^18 || ^16 || ^14.19",
     "npm": ">= 6.13.4",
     "yarn": ">= 1.21.1"
   }
