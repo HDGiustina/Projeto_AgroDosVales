@@ -1,6 +1,7 @@
 <template>
   <q-page >
     <BannerInfo />
+    <BannerConceito />
     <div>
       <div v-if="!user.id">
         <h6 style="font-weight: 600; color: #5A645B">Últimas atualizações</h6>
@@ -30,6 +31,7 @@ import CarouselComponent from 'src/components/CarouselComponent.vue'
 import SearchComponent from 'components/alphabeticalComponent/SearchComponent.vue'
 import CadastrarComponent from 'src/components/CadastrarComponent.vue'
 import BannerInfo from 'src/components/Home/BannerInfo.vue'
+import BannerConceito from 'src/components/Home/BannerConceito.vue'
 
 export default defineComponent({
   name: 'PlantasPage',
@@ -37,7 +39,8 @@ export default defineComponent({
     CarouselComponent,
     SearchComponent,
     CadastrarComponent,
-    BannerInfo
+    BannerInfo,
+    BannerConceito
   },
   setup () {
     const user = JSON.parse(localStorage.getItem('usuario') ?? '{}') ?? {}
