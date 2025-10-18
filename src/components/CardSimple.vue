@@ -134,7 +134,7 @@ export default defineComponent({
   .card_main h2 {
     font-size: 16px;
   }
-  
+
   .card_main p, .card_main span, .card_btn {
     font-size: 12px !important;
   }

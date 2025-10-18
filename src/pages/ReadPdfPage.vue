@@ -1,8 +1,15 @@
 <template>
   <q-page padding>
-    <q-btn flat round size="md" icon="mdi-arrow-left" @click="router.push({name: 'bioativas'})"></q-btn>
-    <div style="padding-left: 5%; padding-right: 5%; padding-bottom: 5%">
-      <div class="flex flex-center text-white text-bold text-h6" style="background-color: #006334; height: 40px; border-radius: 10px">{{ titulo }}</div>
+    <buttonComponent
+      class="pdf_btn"
+      label="Voltar para a Home"
+      :flat="true"
+      :no-caps="true"
+      icon="arrow_back"
+      @click="router.push({name: 'bioativas'})"
+    />
+    <div class="q-pa-lg main_pdf">
+      <h1 class="flex flex-center text-primary text-bold text-h5 q-mb-xl q-mt-lg q-mx-auto title_pdf" style="max-width: 700px; text-align: center;">{{ titulo }}</h1>
       <q-pdfviewer v-model="show" type="html5" :src="pdfUrl" style="height: 80vh" content-style="container"/>
     </div>
   </q-page>
@@ -11,9 +18,13 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import buttonComponent from 'src/components/Button.vue'
 
 export default defineComponent({
   name: 'ReadPdfPage',
+  components: {
+    buttonComponent
+  },
   setup () {
     const router = useRouter()
     const route = useRoute()
@@ -39,6 +50,27 @@ export default defineComponent({
 </script>
 
 <style>
-.container {
+.pdf_btn :nth-child(n):is(i) {
+  font-size: 1rem;
+}
+@media screen and (max-width: 824px) {
+  .title_pdf{
+    font-size: 18px !important;
+  }
+
+  .main_pdf {
+    padding: 16px !important;
+  }
+  .pdf_btn {
+    font-size: 12px !important;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .title_pdf{
+    font-size: 16px !important;
+    line-height: normal;
+    margin: 24px auto;
+  }
 }
 </style>
