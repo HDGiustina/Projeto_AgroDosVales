@@ -1,6 +1,6 @@
 <template>
-  <q-scroll-area :thumb-style="thumbStylePerso" style="height: 50vh" :bar-style="barStyle" class="q-my-md">
-    <div class="q-my-sm" v-for="(data, index) in dataTable" :key="index">
+  <q-scroll-area :thumb-style="thumbStylePerso" style="height: 500px" :bar-style="barStyle" >
+    <div class="table_row" v-for="(data, index) in dataTable" :key="index">
       <q-card flat>
         <q-card-section>
           <div class="row">
@@ -191,5 +191,9 @@ export default defineComponent({
   position: absolute;
   left: 0;
   transform: translateY(50%);
+}
+
+.table_row {
+  border-top: 1px solid var(--color-gray-mid);
 }
 </style>

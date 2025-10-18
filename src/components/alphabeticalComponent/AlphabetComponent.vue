@@ -2,7 +2,7 @@
   <div class="row flex flex-center">
     <div v-for="(letter, index) in alphabet" :key="index">
       <q-btn
-        :style="letter === letterActive ? 'background-color: rgba(123, 181, 66, 0.3)' : ''"
+        :class="letter === letterActive ? 'alpha_btn' : ''"
         round
         flat
         :label="letter"
@@ -34,3 +34,10 @@ export default defineComponent({
   }
 })
 </script>
+
+<style>
+.alpha_btn {
+  background-color: var(--color-primary);
+  color: white;
+}
+</style>

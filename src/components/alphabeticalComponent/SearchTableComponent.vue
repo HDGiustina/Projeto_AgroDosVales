@@ -1,46 +1,41 @@
 <template>
-  <div>
-    <div class="q-my-lg">
-      <q-card flat>
-        <q-card-section v-if="!detalhesOpen">
-          <div class="row text-center">
-            <div class="col-2">{{ headers.col1 }}</div>
-            <div class="col-7">{{ headers.col2 }}</div>
-            <div class="col-2">{{ headers.col3 }}</div>
-          </div>
-        </q-card-section>
-        <q-btn
-          v-else
-          no-caps
-          rounded
-          size="xs"
-          @click="closeDetalhe"
-          class="q-ml-lg q-mb-sm q-py-none"
-          flat
-          style="
-          color: #7BB542;
-          border: thin solid #7BB542;
-          "
-        >
-          <span style="font-size: 10px;">Voltar</span>
-        </q-btn>
-        <div class="custom-green-line"></div>
-      </q-card>
+  <section class="q-mt-xl">
+    <q-card flat>
+      <q-card-section v-if="!detalhesOpen" class="table_header">
+        <div class="table_tab tab_plantas">{{ headers.col1 }}</div>
+        <div class="table_tab">{{ headers.col2 }}</div>
+        <div class="table_tab">{{ headers.col3 }}</div>
+      </q-card-section>
+      <q-btn
+        v-else
+        no-caps
+        rounded
+        size="xs"
+        @click="closeDetalhe"
+        class="q-ml-lg q-mb-sm q-py-none"
+        flat
+        style="
+        color: #7BB542;
+        border: thin solid #7BB542;
+        "
+      >
+        <span style="font-size: 10px;">Voltar</span>
+      </q-btn>
+    </q-card>
+    <div v-if="!detalhesOpen">
+      <show-plantas-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
+                                    v-if="tab === 'plantas'"/>
+      <show-produtores-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
+                                       v-if="tab === 'produtores'"/>
+      <show-industrias-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
+                                       v-if="tab === 'industrias'"/>
     </div>
-  </div>
-  <div v-if="!detalhesOpen">
-    <show-plantas-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
-                                  v-if="tab === 'plantas'"/>
-    <show-produtores-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
-                                     v-if="tab === 'produtores'"/>
-    <show-industrias-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
-                                     v-if="tab === 'industrias'"/>
-  </div>
-  <detalhes-component
-    v-else
-    :unmappedData="detalheShow"
-    :tab="tab"
-  />
+    <detalhes-component
+      v-else
+      :unmappedData="detalheShow"
+      :tab="tab"
+    />
+  </section>
 </template>
 
 <style scoped>
@@ -140,3 +135,21 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.table_header {
+  display: flex;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-gray-op);
+}
+
+.table_tab.tab_plantas{
+  width: 45%;
+}
+
+.table_tab {
+  width: 30%;
+  font-weight: 600;
+  color: var(--color-grey);
+}
+</style>

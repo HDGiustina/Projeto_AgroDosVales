@@ -1,32 +1,36 @@
 <template>
-  <div class="flex flex-center q-my-lg">
-    <q-input
-      rounded
-      flat
-      color="grey-9"
-      v-model="text"
-      style="font-size: 30px; width: 87vw"
-      standout="bg-green-3"
-      clearable
-    >
-      <template v-slot:append>
-        <q-icon class="q-mr-md" size="md" name="search"/>
-      </template>
-    </q-input>
-  </div>
-  <div class="flex flex-center q-my-lg">
-    <q-tabs
-      v-model="tab"
-      indicator-color="transparent"
-      content-class="rounded-tabs"
-    >
-      <q-tab name='plantas' label="Plantas"/>
-      <q-tab name='produtores' label="Produtores"/>
-      <q-tab name='industrias' label="Indústrias"/>
-    </q-tabs>
-  </div>
-  <alphabet-component @letter-selected="onLetterSelected"/>
-  <search-table-component :letter="letter" :param="text" :tab="tab"/>
+  <section class="searchComponente">
+    <main class="main_search">
+      <div>
+        <q-input
+          outlined
+          flat
+          color="grey-5"
+          v-model="text"
+          class="search_input"
+          bg-color="white"
+          placeholder="Pesquisar plantas, produtores ou indústrias..."
+        >
+          <template v-slot:prepend>
+            <q-icon class="q-mr-xs" size="md" name="search" style="font-size: 18px;"/>
+          </template>
+        </q-input>
+      </div>
+      <div class="flex flex-center q-my-lg">
+        <q-tabs
+          v-model="tab"
+          indicator-color="transparent"
+          class="search_tabs"
+        >
+          <q-tab class="search_tabs_item" name='plantas' label="Plantas"/>
+          <q-tab class="search_tabs_item" name='produtores' label="Produtores"/>
+          <q-tab class="search_tabs_item" name='industrias' label="Indústrias"/>
+        </q-tabs>
+      </div>
+      <alphabet-component @letter-selected="onLetterSelected"/>
+      <search-table-component :letter="letter" :param="text" :tab="tab"/>
+    </main>
+  </section>
 </template>
 
 <script lang="ts">
@@ -53,25 +57,45 @@ export default defineComponent({
   }
 })
 </script>
+<style>
+.search_tabs .q-tabs__content {
+  display: flex;
+  gap: 1rem;
+}
+.search_tabs_item.q-tab--active {
+  background-color: var(--color-primary) !important;
+  color: white;
+}
+</style>
+
 <style scoped>
-.rounded-tabs .q-tab {
-  background-color: rgba(245, 245, 245, 1);
-  color: rgba(0, 99, 52, 1);
-  border-radius: 25px;
-  margin: 0 10px;
-  width: 150px;
-  height: 5vh;
-  min-height: 5vh;
-  padding: 0;
+.searchComponente {
+  background-color: var(--color-primary-light );
+  display: flex;
 }
 
-.rounded-tabs .q-tab--active {
-  background-color: rgba(123, 181, 66, 1);
-  color: white;
-  margin: 0 10px;
-  width: 150px;
-  height: 5vh;
-  min-height: 5vh;
-  padding: 0;
+.main_search {
+  max-width: var(--limit-page-width);
+  margin: 0 auto;
+  padding: 8rem 2rem;
+}
+
+.search_input {
+  font-size: 24;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.search_input :nth-child(n):is(div){
+  height: 40px;
+}
+
+.search_tabs_item {
+  background-color: white;
+  border: 1px solid var(--color-gray-op);
+  border-radius: 24px;
+  min-height: auto;
+  padding: 0.3rem 1rem;
 }
 </style>
