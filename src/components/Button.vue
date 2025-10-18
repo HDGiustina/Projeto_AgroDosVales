@@ -4,6 +4,7 @@
     :color="color"
     :size="size"
     :icon="iconProp"
+    :icon-right="iconRight"
     :outline="outline"
     :round="round"
     :rounded="rounded"
@@ -32,6 +33,10 @@ export default defineComponent({
       default: ''
     },
     icon: {
+      type: String,
+      default: undefined
+    },
+    iconRight: {
       type: String,
       default: undefined
     },

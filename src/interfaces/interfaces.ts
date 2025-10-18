@@ -32,7 +32,9 @@ export interface atualizacoesInterfaces {
   arquivo: string
   link: string
   link_inscricao: string,
-  created_at: string
+  created_at: string,
+  data_realizacao: string,
+  inscricao_ate: string
 }
 
 export interface MappedDetalhe {
