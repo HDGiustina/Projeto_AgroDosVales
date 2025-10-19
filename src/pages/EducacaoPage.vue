@@ -1,5 +1,6 @@
 <template>
-  <q-page style="padding: 2.5%">
+  <q-page>
+    <BannerCursoPrincipal />
     <h6 class="q-my-md" style="font-weight: 600; color: #5A645B">Cursos ativos</h6>
     <carousel-component :param="'aprendizado'"/>
     <div class="q-mt-xl" style="margin-bottom: 2%">
@@ -18,11 +19,14 @@
 import { defineComponent } from 'vue'
 import CarouselComponent from 'src/components/CarouselComponent.vue'
 import TreeComponent from 'src/components/TreeComponent.vue'
+import BannerCursoPrincipal from 'src/components/Cursos/BannerCursoPrincipal.vue'
+
 export default defineComponent({
   name: 'EducacaoPage',
   components: {
     CarouselComponent,
-    TreeComponent
+    TreeComponent,
+    BannerCursoPrincipal
   }
 })
 </script>
