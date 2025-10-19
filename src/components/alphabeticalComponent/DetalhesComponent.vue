@@ -1,7 +1,7 @@
 <template>
   <div class="data-detalhes">
-    <div class="row q-pa-lg">
-      <div style="margin-right: 30px;">
+    <div class="row q-pa-lg detalhes_main">
+      <div style="margin-right: 30px; display: flex; align-items: center;">
         <q-img
           v-if="miniatura"
           loading="eager"
@@ -11,12 +11,13 @@
           width="200px"
           height="200px"
           style="border-radius: 30px"
+          class="detalhe_image"
         />
         <div v-else class="detalhe_semFoto">
           <img src="../../assets/icons/user.svg" alt="Sem foto">
         </div>
       </div>
-      <div style="position: relative;">
+      <div class="detalhes_content">
         <div class="text-h5 text-capitalize">{{ nome }}</div>
         <div class="detalhes_infos">
           <div v-for="item in dataDetalhe" :key="item.field" class="row flex-nowrap items-center">
@@ -224,5 +225,47 @@ export default defineComponent({
 .detalhe_semFoto img {
   width: 80%;
   height: auto;
+}
+
+.detalhes_main {
+  min-height: 250px;
+}
+
+.detalhes_content {
+  position: relative;
+  width: 75%;
+}
+
+@media screen and (max-width: 1024px) {
+  .detalhe_image, .detalhe_semFoto{
+    width: 150px !important;
+    height: 150px !important;
+  }
+}
+@media screen and (max-width: 890px) {
+  .detalhes_infos {
+    grid-template-columns: 1fr;
+    margin: 8px 0 0;
+  }
+  .detalhes_main {
+    min-height: 450px;
+    display: flex;
+    flex-direction: column;
+  }
+  .detalhe_restrito {
+    font-size: 12px;
+  }
+  .detalhes_content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .detalhe_alert {
+    position: relative;
+  }
+  .detalhes_infos {
+    margin: 16px 0 20px;
+  }
 }
 </style>

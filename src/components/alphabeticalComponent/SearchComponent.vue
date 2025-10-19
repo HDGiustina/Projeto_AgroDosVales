@@ -16,7 +16,7 @@
           </template>
         </q-input>
       </div>
-      <div class="flex flex-center q-my-lg">
+      <div class="flex flex-center q-my-lg search_tabs_container">
         <q-tabs
           v-model="tab"
           indicator-color="transparent"
@@ -66,6 +66,13 @@ export default defineComponent({
   background-color: var(--color-primary) !important;
   color: white;
 }
+
+@media screen and (max-width: 480px) {
+  .search_tabs .q-tabs__content {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
 </style>
 
 <style scoped>
@@ -78,6 +85,7 @@ export default defineComponent({
   max-width: var(--limit-page-width);
   margin: 0 auto;
   padding: 8rem 2rem;
+  width: 100%;
 }
 
 .search_input {
@@ -102,6 +110,21 @@ export default defineComponent({
 @media screen and (max-width: 1024px) {
   .main_search {
     padding: 4rem 2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .search_tabs {
+    margin: 0 !important;
+    width: 100%;
+  }
+  .search_tabs_container {
+    margin: 14px 0 !important;
+  }
+  .search_tabs_item {
+    border-radius: 24px;
+    padding: 0.3rem 1rem;
+    width: 100%;
   }
 }
 </style>
