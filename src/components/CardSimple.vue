@@ -32,17 +32,22 @@ export default defineComponent({
   },
   props: {
     infos: {
-      type: Object as () => atualizacoesInterfaces,
+      type: Object,
       required: true
+    },
+    page: {
+      type: String,
+      required: false
     }
   },
   setup (props) {
-    console.log(props.infos.link)
     const router = useRouter()
 
     const openScreen = (card:atualizacoesInterfaces) => {
       if (card.tipo === 'artigo' && card.arquivo) {
         router.push({ name: 'readPdf', query: { arquivo: card.arquivo, descricao: card.titulo } })
+      } if (props.page === 'artigo' && card.link) {
+        router.push({ name: 'readPdf', query: { arquivo: card.link, descricao: card.titulo, back: 'educacao' } })
       } else {
         const linkDestino = card.link ?? card.link_inscricao
         window.open(linkDestino, '_blank')
@@ -50,9 +55,8 @@ export default defineComponent({
     }
 
     const getText = (card:atualizacoesInterfaces) => {
-      console.log(card, 'card dentro do getText')
       const text = ""
-      if (card.tipo === 'artigo') {
+      if (card.tipo === 'artigo' || props.page === 'artigo') {
         return 'Leia mais'
       } else if (card.tipo === 'evento') {
         return 'Inscrever-me no evento'

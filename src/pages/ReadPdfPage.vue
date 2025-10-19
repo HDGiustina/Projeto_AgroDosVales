@@ -2,11 +2,11 @@
   <q-page padding>
     <buttonComponent
       class="pdf_btn"
-      label="Voltar para a Home"
+      :label="labelText"
       :flat="true"
       :no-caps="true"
       icon="arrow_back"
-      @click="router.push({name: 'bioativas'})"
+      @click="router.push({name: link})"
     />
     <div class="q-pa-lg main_pdf">
       <h1 class="flex flex-center text-primary text-bold text-h5 q-mb-xl q-mt-lg q-mx-auto title_pdf" style="max-width: 700px; text-align: center;">{{ titulo }}</h1>
@@ -31,11 +31,20 @@ export default defineComponent({
     const titulo = ref<string>('')
     const pdfUrl = ref<string>('')
     const show = ref<boolean>(true)
+    const link = ref<string>('')
+    const labelText = ref<string>('')
 
     onMounted(() => {
       if (route.query.descricao && route.query.arquivo) {
         titulo.value = route.query.descricao.toString()
         pdfUrl.value = route.query.arquivo.toString()
+        link.value = route.query.back ? route.query.back.toString() : 'bioativas'
+
+        if (link.value === 'educacao') {
+          labelText.value = 'Voltar para os Cursos'
+        } else {
+          labelText.value = 'Voltar para a Home'
+        }
       }
     })
 
@@ -43,7 +52,9 @@ export default defineComponent({
       router,
       titulo,
       pdfUrl,
-      show
+      show,
+      link,
+      labelText
     }
   }
 })
