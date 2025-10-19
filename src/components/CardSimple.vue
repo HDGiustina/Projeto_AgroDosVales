@@ -1,5 +1,8 @@
 <template>
   <div class="card_simple">
+    <q-chip v-if="infos.tipo" color="primary" text-color="white" class="card_chip">
+      {{ infos.tipo }}
+    </q-chip>
     <img :src="infos.miniatura" :alt="'Imagem de ' + infos.tipo" />
     <div class="card_main">
         <h2>{{ infos.titulo }}</h2>
@@ -84,6 +87,17 @@ export default defineComponent({
   border-radius: 8px;
   overflow: hidden;
   width: 100%;
+  position: relative;
+}
+
+.card_chip {
+  width: auto;
+  position: absolute;
+  top: 12px;
+  left: 10px;
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .card_simple img {
