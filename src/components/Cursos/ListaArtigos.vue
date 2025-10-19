@@ -32,7 +32,7 @@ export default defineComponent({
 
 <style scoped>
 .ListaArtigos {
-    padding: 2rem 6rem;
+    padding: 2rem 6rem 6rem;
     background-color: var(--color-gray-light);
 }
 

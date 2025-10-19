@@ -5,6 +5,7 @@
     <carousel-component :param="'aprendizado'"/>
     <InfosPlantas />
     <ListaArtigos />
+    <CadastrarComponent />
   </q-page>
 </template>
 
@@ -14,6 +15,7 @@ import CarouselComponent from 'src/components/CarouselComponent.vue'
 import BannerCursoPrincipal from 'src/components/Cursos/BannerCursoPrincipal.vue'
 import InfosPlantas from 'src/components/Cursos/InfosPlantas.vue'
 import ListaArtigos from 'src/components/Cursos/ListaArtigos.vue'
+import CadastrarComponent from 'src/components/CadastrarComponent.vue'
 
 export default defineComponent({
   name: 'EducacaoPage',
@@ -21,7 +23,8 @@ export default defineComponent({
     CarouselComponent,
     BannerCursoPrincipal,
     InfosPlantas,
-    ListaArtigos
+    ListaArtigos,
+    CadastrarComponent
   }
 })
 </script>
