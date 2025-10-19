@@ -1,12 +1,13 @@
 <template>
-  <q-scroll-area :thumb-style="thumbStylePerso" style="height: 50vh" :bar-style="barStyle" class="q-my-md">
-    <div class="q-my-sm" v-for="(data, index) in dataTable" :key="index">
+  <q-scroll-area :thumb-style="thumbStylePerso" style="height: 500px" :bar-style="barStyle">
+    <div class="table_row" v-for="(data, index) in dataTable" :key="index" @click="selectDetalhe(data)">
       <q-card flat>
-        <q-card-section>
+        <q-card-section class="card_table">
           <div class="row">
-            <div class="col-5 flex content-center">
+            <div class="col-3 flex content-center">
               <div class="row no-wrap">
                 <q-img
+                  v-if="data.miniatura"
                   :src="data.miniatura"
                   loading="eager"
                   alt="Imagem do Produtor"
@@ -14,7 +15,6 @@
                   width="148px"
                   height="139px"
                   style="border-radius: 30px"
-                  @click="selectDetalhe(data)"
                 />
                 <div class="q-ml-sm column">
                   <div>Data de cadastro:</div>
@@ -24,35 +24,29 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-6">
               <div
                 v-for="(planta, plantaIndex) in data.plantas"
                 :key="plantaIndex"
                 class="row q-my-sm"
+                style="display: flex; gap: 12px; align-items: center;"
               >
-                <div class="col-2">
-                  <q-img
-                    loading="eager"
-                    :src="planta.imagem"
-                    alt="Imagem da planta"
-                    style="max-height: 50px; max-width: 50px"
-                  />
-                </div>
-                <div class="col-8">
+                <q-img
+                  loading="eager"
+                  :src="planta.imagem"
+                  alt="Imagem da planta"
+                  style="width: 70px; height: 70px; border-radius: 20px"
+                />
+                <div class="">
+                  <div class="text-bold">{{ planta.nome_popular }}</div>
                   <div>{{ planta.nome_cientifico }}</div>
-                  <div>{{ planta.nome_popular }}</div>
                 </div>
               </div>
             </div>
             <div class="col-2 flex flex-start justify-center column">
               <div v-if="data.telefone">Telefone: {{ data.telefone }}</div>
-              <div style="margin-left: 5.4vw;" v-else>
-                <q-icon class="q-my-md" size="35px" name="mdi-eye-off-outline"/>
-              </div>
               <div v-if="data.email">Email: {{ data.email }}</div>
-              <div style="margin-left: 5.4vw;" v-else>
-                <q-icon size="35px" name="mdi-eye-off-outline"/>
-              </div>
+              <div v-if="!data.telefone && !data.email" class="info_restrito">Restrito</div>
             </div>
           </div>
         </q-card-section>
@@ -146,3 +140,23 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.table_row {
+  border-top: 1px solid var(--color-gray-mid);
+  cursor: pointer;
+}
+
+.card_table:hover {
+  background: var(--color-gray-light) !important;
+}
+
+.info_restrito {
+  border: 1px solid var(--q-negative);
+  color: var(--q-negative);
+  padding: 2px 8px;
+  border-radius: 12px;
+  width: auto;
+  margin: auto;
+}
+</style>

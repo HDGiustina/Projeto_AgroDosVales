@@ -2,71 +2,62 @@
   <q-scroll-area :thumb-style="thumbStylePerso" style="height: 500px" :bar-style="barStyle" >
     <div class="table_row" v-for="(data, index) in dataTable" :key="index">
       <q-card flat>
-        <q-card-section>
-          <div class="row">
-            <div class="col-5 flex content-center">
-              <div class="row no-wrap">
-                <q-img
-                  :src="data.imagem"
-                  loading="eager"
-                  alt="Imagem do data"
-                  class="col-3"
-                  fit="fill"
-                  width="148px"
-                  height="139px"
-                  style="border-radius: 30px"
-                  @click="selectDetalhe(data)"
-                />
-                <div class="q-ml-sm q-mr-md column col">
-                  <div class="q-mb-sm">
-                    <span style="font-weight: bolder">{{ data.nome_cientifico }}</span>
-                    <span v-if="data.autor"> ({{ data.autor }}) </span>
-                  </div>
-                  <div>
-                    <span>A <i>{{ data.nome_cientifico }}</i> é popularmente conhecida como
-                    {{ data.nome_popular }}
-                    </span>
-                    <span v-if="data.sinonimia"> ou {{ data.sinonimia }}
-                    </span>
-                  </div>
+        <q-card-section class="row no-wrap q-pa-md card_table" @click="selectDetalhe(data)">
+          <div class="col-8 flex content-center">
+            <div class="row no-wrap" style="width: 100%;">
+              <q-img
+                :src="data.imagem"
+                loading="eager"
+                alt="Imagem do planta"
+                class="table_image"
+                fit="fill"
+                style="border-radius: 30px; cursor: pointer;"
+              />
+              <div class="q-ml-md q-mr-md column col table_infos">
+                <div class="">
+                  <span class="" style="color: var(--color-dark);">{{ data.nome_cientifico }}</span>
+                  <span v-if="data.autor" style="color: var(--color-dark);"> ({{ data.autor }}) </span>
+                </div>
+                <div>
+                  <span style="color: var(--color-gray);">A <i>{{ data.nome_cientifico }}</i> é popularmente conhecida como
+                  <b>{{ data.nome_popular }}</b>
+                  </span>
+                  <span v-if="data.sinonimia" style="color: var(--color-gray);"> ou {{ data.sinonimia }}
+                  </span>
                 </div>
               </div>
             </div>
-            <div v-if="!usuario" class="items-center flex col-4">
-              <q-chip
-                class="q-ml-xl"
-                style="border-radius: 10px; background-color: #7BB542; margin-left: 2.5vw;"
-                text-color="white"
-              > {{ data.n_produtores }}
-              </q-chip>
+          </div>
+          <div v-if="!usuario" class="flex flex-center col-2">
+            <span
+              class="table_chip"
+            > {{ data.n_produtores }}
+            </span>
+          </div>
+          <div v-else class="items-center flex col-2">
+            <q-list>
+              <q-item v-for="(indicacao, indexIndicacao) in data.indicacoes" v-bind:key="indexIndicacao"
+                      class="flex flex-center justify-center"
+              >
+                <div class="custom-bullet"></div>
+                <q-item-section>{{ indicacao.descricao }}</q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+          <div v-if="!usuario" class="col-2 flex flex-center ">
+            <span
+              class="table_chip"
+            > {{ data.n_industrias }}
+            </span>
+          </div>
+          <div v-else class="col-2 flex flex-start justify-center ">
+            <div class="flex flex-start justify-center row">
+              <q-icon size="sm" name="mdi-link-variant"/>
+              <div><span @click="gotoPlantaProdutores(data)" style="cursor: pointer">Página de produtores</span></div>
             </div>
-            <div v-else class="items-center flex col-4">
-              <q-list>
-                <q-item v-for="(indicacao, indexIndicacao) in data.indicacoes" v-bind:key="indexIndicacao"
-                        class="flex flex-center justify-center"
-                >
-                  <div class="custom-bullet"></div>
-                  <q-item-section>{{ indicacao.descricao }}</q-item-section>
-                </q-item>
-              </q-list>
-            </div>
-            <div v-if="!usuario" class="col-2 flex flex-center column">
-              <q-chip
-                class=""
-                style="border-radius: 10px; background-color: #7BB542;"
-                text-color="white"
-              > {{ data.n_industrias }}
-              </q-chip>
-            </div>
-            <div v-else class="col-3 flex flex-start justify-center column">
-              <div class="flex flex-start justify-center row">
-                <q-icon size="sm" name="mdi-link-variant"/>
-                <div><span @click="gotoPlantaProdutores(data)" style="cursor: pointer">Página de produtores</span></div>
-              </div>
-              <div class="flex flex-start justify-center q-mt-md row">
-                <q-icon size="sm" name="mdi-link-variant"/>
-                <div><span @click="gotoPlantaIndustrias(data)" style="cursor: pointer">Página de indústrias</span></div>
-              </div>
+            <div class="flex flex-start justify-center q-mt-md row">
+              <q-icon size="sm" name="mdi-link-variant"/>
+              <div><span @click="gotoPlantaIndustrias(data)" style="cursor: pointer">Página de indústrias</span></div>
             </div>
           </div>
         </q-card-section>
@@ -195,5 +186,29 @@ export default defineComponent({
 
 .table_row {
   border-top: 1px solid var(--color-gray-mid);
+  cursor: pointer;
+}
+
+.table_image {
+  width: 100px;
+  height: 100px;
+}
+
+.table_chip {
+  background-color: var(--color-primary-light);
+  color: var(--color-dark);
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.table_infos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card_table:hover {
+  background: var(--color-gray-light) !important;
 }
 </style>

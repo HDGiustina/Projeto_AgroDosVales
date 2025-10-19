@@ -2,25 +2,18 @@
   <section class="q-mt-xl">
     <q-card flat>
       <q-card-section v-if="!detalhesOpen" class="table_header">
-        <div class="table_tab tab_plantas">{{ headers.col1 }}</div>
-        <div class="table_tab">{{ headers.col2 }}</div>
-        <div class="table_tab">{{ headers.col3 }}</div>
+        <div :class="{'table_tab': true,  'tab_plantas': tab == 'plantas', 'tab_industria': tab == 'industrias'}">{{ headers.col1 }}</div>
+        <div :class="{'table_tab': true,  'tab_produtor': tab == 'produtores', 'tab_industria': tab == 'industrias'}">{{ headers.col2 }}</div>
+        <div :class="{'table_tab': true}">{{ headers.col3 }}</div>
       </q-card-section>
-      <q-btn
-        v-else
-        no-caps
-        rounded
-        size="xs"
-        @click="closeDetalhe"
-        class="q-ml-lg q-mb-sm q-py-none"
-        flat
-        style="
-        color: #7BB542;
-        border: thin solid #7BB542;
-        "
-      >
-        <span style="font-size: 10px;">Voltar</span>
-      </q-btn>
+      <div class="table_header" v-else>
+        <buttonComponent
+          label="Voltar à lista"
+          size="sm"
+          @click="closeDetalhe"
+          icon="arrow_back"
+        />
+      </div>
     </q-card>
     <div v-if="!detalhesOpen">
       <show-plantas-table-component @detalheSelecionado="openDetalhe" :letter="letter" :param="param" :tab="tab"
@@ -52,6 +45,7 @@ import ShowPlantasTableComponent from 'components/alphabeticalComponent/ShowPlan
 import ShowProdutoresTableComponent from 'components/alphabeticalComponent/ShowProdutoresTableComponent.vue'
 import DetalhesComponent from 'components/alphabeticalComponent/DetalhesComponent.vue'
 import { Industria, Planta, Produtor } from 'src/interfaces/interfaces'
+import buttonComponent from 'src/components/Button.vue'
 
 export default defineComponent({
   name: 'SearchTableComponent',
@@ -59,7 +53,8 @@ export default defineComponent({
     DetalhesComponent,
     ShowIndustriasTableComponent,
     ShowPlantasTableComponent,
-    ShowProdutoresTableComponent
+    ShowProdutoresTableComponent,
+    buttonComponent
   },
   props: {
     tab: {
@@ -143,13 +138,24 @@ export default defineComponent({
   background-color: var(--color-gray-op);
 }
 
-.table_tab.tab_plantas{
-  width: 45%;
-}
-
 .table_tab {
-  width: 30%;
+  width: 17%;
   font-weight: 600;
   color: var(--color-grey);
+  text-align: center;
 }
+
+.table_tab.tab_plantas{
+  width: 70%;
+  text-align: left;
+}
+
+.table_tab.tab_produtor{
+  width: 58%;
+}
+
+.table_tab.tab_industria{
+  width: 38%;
+}
+
 </style>

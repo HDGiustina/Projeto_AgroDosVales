@@ -70,7 +70,7 @@ export default defineComponent({
 
 <style scoped>
 .searchComponente {
-  background-color: var(--color-primary-light );
+  background-color: var(--color-primary-light);
   display: flex;
 }
 
@@ -97,5 +97,11 @@ export default defineComponent({
   border-radius: 24px;
   min-height: auto;
   padding: 0.3rem 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .main_search {
+    padding: 4rem 2rem;
+  }
 }
 </style>

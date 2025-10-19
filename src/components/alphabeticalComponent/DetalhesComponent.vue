@@ -1,22 +1,26 @@
 <template>
   <div class="data-detalhes">
-    <div class="row q-my-lg">
+    <div class="row q-pa-lg">
       <div style="margin-right: 30px;">
         <q-img
+          v-if="miniatura"
           loading="eager"
           :src="miniatura"
           alt="Imagem Detalhe"
           fit="fill"
-          width="300px"
-          height="300px"
+          width="200px"
+          height="200px"
           style="border-radius: 30px"
         />
+        <div v-else class="detalhe_semFoto">
+          <img src="../../assets/icons/user.svg" alt="Sem foto">
+        </div>
       </div>
-      <div>
-        <div class="text-h4">{{ nome }}</div>
-        <div class="column q-gutter-y-sm q-mt-sm" style="max-height: 99%; overflow-y: auto">
-          <div v-for="item in dataDetalhe" :key="item.field" class="row flex-nowrap">
-            <b>{{ item.field }}</b>
+      <div style="position: relative;">
+        <div class="text-h5 text-capitalize">{{ nome }}</div>
+        <div class="detalhes_infos">
+          <div v-for="item in dataDetalhe" :key="item.field" class="row flex-nowrap items-center">
+            <b class="">{{ item.field }}</b>
             <div v-if="item.value">
               <span v-if="!item.domelement" class="q-ml-sm">{{ item.value }}</span>
               <div v-if="Array.isArray(item.value) && item.value.length > 0" class="q-ml-sm">
@@ -31,9 +35,12 @@
                 </span>
               </div>
             </div>
-            <q-icon v-else class="q-ml-md" size="20px" name="mdi-eye-off-outline"/>
+            <!-- <q-icon v-else class="q-ml-md" size="20px" name="mdi-eye-off-outline"/> -->
+            <div v-else class="q-ml-sm text-negative detalhe_restrito">Restrito</div>
           </div>
         </div>
+
+        <span class="detalhe_alert"><a @click="router.push({name: 'login'})" class="detalhe_link">Faça login</a> para liberar o acesso completo às informações.</span>
       </div>
     </div>
   </div>
@@ -42,6 +49,7 @@
 import { defineComponent, ref } from 'vue'
 import { date } from 'quasar'
 import { Artigo, Curso, Industria, MappedDetalhe, Planta, Produtor } from 'src/interfaces/interfaces'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'DetalhesComponent',
@@ -61,6 +69,7 @@ export default defineComponent({
     }
   },
   setup (props) {
+    const router = useRouter()
     const mapData = (unmappedData: Planta | Produtor | Industria): MappedDetalhe[] | void => {
       switch (props.tab) {
         case 'plantas':
@@ -82,9 +91,9 @@ export default defineComponent({
           })
         }
         miniatura.value = unmappedPlanta.imagem
-        nome.value = unmappedPlanta.nome_cientifico
+        nome.value = unmappedPlanta.nome_popular
         const mappedData = [
-          { field: 'Nome Popular: ', value: unmappedPlanta.nome_popular },
+          { field: 'Nome Cientifíco: ', value: unmappedPlanta.nome_cientifico },
           { field: 'Produtores: ', value: unmappedPlanta.n_produtores },
           { field: 'Indústrias: ', value: unmappedPlanta.n_industrias },
           { field: 'Indicações de uso: ', value: unmappedPlanta.indicacoesUso },
@@ -162,7 +171,8 @@ export default defineComponent({
     return {
       nome,
       miniatura,
-      dataDetalhe
+      dataDetalhe,
+      router
     }
   }
 })
@@ -171,5 +181,48 @@ export default defineComponent({
 <style scoped>
 .data-detalhes {
   width: 100%;
+  background-color: white;
+}
+
+.detalhes_infos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 50px;
+  margin: 16px 0 0;
+}
+
+.detalhe_restrito {
+  border: 1px solid var(--q-negative);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.detalhe_alert {
+  position: absolute;
+  bottom: 0;
+  background: var(--color-primary-light);
+  padding: 5px 16px;
+  border-radius: 10px;
+}
+
+.detalhe_link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.detalhe_semFoto {
+  background-color: var(--color-primary-light);
+  padding: 3rem;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+}
+
+.detalhe_semFoto img {
+  width: 80%;
+  height: auto;
 }
 </style>
