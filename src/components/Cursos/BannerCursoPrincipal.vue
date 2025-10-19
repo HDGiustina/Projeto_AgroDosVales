@@ -134,7 +134,7 @@ export default defineComponent({
   .bannerCurso_img {
     position: absolute;
     top: 0;
-    left: 0;  
+    left: 0;
     z-index: -1;
     width: auto;
     min-width: 100%;
