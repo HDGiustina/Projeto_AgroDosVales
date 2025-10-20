@@ -4,13 +4,21 @@
     <div class="card_main">
         <h2>{{ infos.titulo }}</h2>
         <div class="card_infos">
-          <span class="card_text">
+          <span class="card_text" v-if="infos.data_realizacao">
+            <img src="../assets/icons/calendar_gray.svg" alt="Data">
+            {{ date.formatDate(infos.data_realizacao, "D [de] MMMM [de] YYYY") }}
+          </span>
+          <span class="card_text" v-else>
             <img src="../assets/icons/calendar_gray.svg" alt="Data">
             {{ date.formatDate(infos.data_inicio, 'DD/MM/YYYY') }}
             {{ date.formatDate(date.extractDate(infos.data_inicio, 'YYYY-MM-DD'), 'YYYY-MM-DD') !== date.formatDate(date.extractDate(infos.data_fim, 'YYYY-MM-DD'), 'YYYY-MM-DD') ? ' - ' + date.formatDate(infos.data_fim, 'DD/MM/YYYY') : ''
             }}
           </span>
-          <span class="card_text">
+          <span class="card_text" v-if="infos.data_realizacao">
+            <img src="../assets/icons/clock.svg" alt="Horario">
+            {{ date.formatDate(infos.data_realizacao, 'HH:mm') }}
+          </span>
+          <span class="card_text" v-else>
             <img src="../assets/icons/clock.svg" alt="Horario">
             {{ date.formatDate(infos.data_inicio, 'HH:mm') }}
             {{
@@ -36,7 +44,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted, reactive } from 'vue'
-import { date } from 'quasar'
+import { date, Quasar } from 'quasar'
+import langPt from 'quasar/lang/pt-BR'
 import { atualizacoesInterfaces } from 'src/interfaces/interfaces'
 import buttonComponent from 'src/components/Button.vue'
 
@@ -52,6 +61,8 @@ export default defineComponent({
     }
   },
   setup () {
+    Quasar.lang.set(langPt)
+
     const openScreen = (card:atualizacoesInterfaces) => {
       const linkDestino = card.link ?? card.link_inscricao
       window.open(linkDestino, '_blank')
@@ -74,6 +85,7 @@ export default defineComponent({
   overflow: hidden;
   width: 100%;
   position: relative;
+  max-width: 600px;
 }
 
 .card img {
