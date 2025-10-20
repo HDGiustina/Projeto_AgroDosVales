@@ -1,5 +1,5 @@
 <template>
-  <q-page style="padding: 2.5%">
+  <q-page>
     <h6 class="q-my-md" style="font-weight: 600; color: #5A645B">Próximos eventos</h6>
     <carousel-component :param="'eventos'"/>
       <q-tabs
@@ -23,11 +23,13 @@
           <CalendarComponent :tab="tab"/>
         </div>
       </div>
+    <CadastrarComponent type="secondary" />
   </q-page>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import CadastrarComponent from 'src/components/CadastrarComponent.vue'
 import CarouselComponent from 'src/components/CarouselComponent.vue'
 import CalendarComponent from 'src/components/CalendarComponent.vue'
 
@@ -35,7 +37,8 @@ export default defineComponent({
   name: 'EventosPage',
   components: {
     CarouselComponent,
-    CalendarComponent
+    CalendarComponent,
+    CadastrarComponent
   },
   setup () {
     const tab = ref('anual')
