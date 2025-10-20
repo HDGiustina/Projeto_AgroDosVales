@@ -1,14 +1,27 @@
 <template>
   <div class="flex flex-center column cadastrar_banner">
-    <h1 class="q-mb-none">Quer fazer parte da comunidade?</h1>
-    <p class="q-my-none">Conecte-se com produtores, pesquisadores e indústrias do setor.</p>
-    <buttonComponent
-      label="Quero me inscrever"
-      class=" text-black q-mt-sm"
-      :outline="false"
-      color="white"
-      @click="router.push({name: 'cadastro'})"
-    />
+    <template v-if="type == 'primary'">
+      <h1 class="q-mb-none">Quer fazer parte da comunidade?</h1>
+      <p class="q-my-none">Conecte-se com produtores, pesquisadores e indústrias do setor.</p>
+      <buttonComponent
+        label="Quero me inscrever"
+        class=" text-black q-mt-sm"
+        :outline="false"
+        color="white"
+        @click="router.push({name: 'cadastro'})"
+      />
+    </template>
+    <template v-if="type == 'secondary'">
+      <h1 class="q-mb-none">Junte-se à Nossa Comunidade!</h1>
+      <p class="q-my-none">Mantenha-se atualizado com os últimos eventos, notícias e inovações no setor agrícola na nossa região.</p>
+      <buttonComponent
+        label="Inscreva-se Agora"
+        class=" text-black q-mt-sm"
+        :outline="false"
+        color="white"
+        @click="router.push({name: 'cadastro'})"
+      />
+    </template>
   </div>
 </template>
 
@@ -20,6 +33,13 @@ export default defineComponent({
   name: 'CadastrarComponent',
   components: {
     buttonComponent
+  },
+  props: {
+    type: {
+      type: String,
+      required: false,
+      default: 'primary'
+    }
   },
   setup () {
     const router = useRouter()

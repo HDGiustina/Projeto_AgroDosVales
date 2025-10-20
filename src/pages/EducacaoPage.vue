@@ -4,7 +4,7 @@
     <Cursos />
     <InfosPlantas />
     <ListaArtigos />
-    <CadastrarComponent />
+    <CadastrarComponent type="secondary" />
   </q-page>
 </template>
 
