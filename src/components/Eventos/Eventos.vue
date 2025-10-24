@@ -1,5 +1,5 @@
 <template>
-  <section class="eventosComponent" id="eventosSection">
+  <section class="eventosComponent" id="eventosSection" >
     <h1>Próximos Eventos</h1>
 
     <!-- FILTROS -->
@@ -87,18 +87,16 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, onMounted } from 'vue'
-import { useQuasar, date } from 'quasar'
-import { atualizacoesInterfaces } from 'src/interfaces/interfaces'
-import EventosService from '../../../services/eventosService'
+import { date } from 'quasar'
+import { useEventosStore } from 'src/stores/useEventosStore'
 import Card from 'src/components/Card.vue'
 
 export default defineComponent({
   name: 'eventosComponent',
   components: { Card },
   setup () {
-    const $q = useQuasar()
+    const eventosStore = useEventosStore()
     const page = ref(1)
-    const eventosList = ref<atualizacoesInterfaces[]>([])
     const eventosPorPagina = 6
 
     // Filtros
@@ -106,20 +104,6 @@ export default defineComponent({
     const filtroTipo = ref<string | null>(null)
     const textoDatas = ref('')
     const abrirCalendario = ref(false)
-
-    const getEventos = () => {
-      EventosService.getAll({ top: 9 })
-        .then(response => {
-          if (response.status === 200) {
-            eventosList.value = response.data
-          } else {
-            $q.notify({ message: 'Erro ao carregar os eventos', color: 'negative' })
-          }
-        })
-        .catch(erro => {
-          $q.notify({ message: erro.message, color: 'negative' })
-        })
-    }
 
     const atualizarTextoDatas = () => {
       if (filtroDatas.value?.from && filtroDatas.value?.to) {
@@ -134,7 +118,7 @@ export default defineComponent({
     }
 
     const eventosFiltrados = computed(() => {
-      let filtrados = eventosList.value
+      let filtrados = eventosStore.eventosList
 
       // filtro de intervalo de datas
       if (filtroDatas.value?.from && filtroDatas.value?.to) {
@@ -183,11 +167,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getEventos()
+      eventosStore.fetchEventos()
     })
 
     return {
-      eventosList,
+      eventosStore,
       eventosFiltrados,
       eventosFiltradosPaginados,
       page,
@@ -203,6 +187,7 @@ export default defineComponent({
   }
 })
 </script>
+
 <style>
 .date_button .q-btn__content span {
     width: 100%;

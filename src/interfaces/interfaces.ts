@@ -34,7 +34,8 @@ export interface atualizacoesInterfaces {
   link_inscricao: string,
   created_at: string,
   data_realizacao: string,
-  inscricao_ate: string
+  inscricao_ate: string,
+  local: string
 }
 
 export interface MappedDetalhe {

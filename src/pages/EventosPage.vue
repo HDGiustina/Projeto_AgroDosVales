@@ -1,49 +1,23 @@
 <template>
   <q-page>
+    <EventoDestaque />
     <Eventos />
-    <!-- <h6 class="q-my-md" style="font-weight: 600; color: #5A645B">Próximos eventos</h6>
-    <carousel-component :param="'eventos'"/>
-      <q-tabs
-        v-model="tab"
-        indicator-color="transparent"
-        content-class="rounded-tabs"
-      >
-        <q-tab name='anual'>
-          <template v-slot:default>
-            <p class="q-mb-none" style="font-size: 18px; font-weight: 400;">Visão <span :style="tab === 'anual' ? 'font-weight: 700; color: #7BB542;' : 'font-weight: 700'">Anual</span></p>
-          </template>
-        </q-tab>
-        <q-tab name='mensal'>
-          <template v-slot:default>
-            <p class="q-mb-none" style="font-size: 18px; font-weight: 400;">Visão <span :style="tab === 'mensal' ? 'font-weight: 700; color: #7BB542;' : 'font-weight: 700'">mensal</span></p>
-          </template>
-        </q-tab>
-      </q-tabs>
-      <div class="flex flex-center row " style="background-color: #F9F9F9;">
-        <div class="row" style=" margin-top: 50px;">
-          <CalendarComponent :tab="tab"/>
-        </div>
-      </div> -->
     <CadastrarComponent type="secondary" />
   </q-page>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import CadastrarComponent from 'src/components/CadastrarComponent.vue'
 import Eventos from 'src/components/Eventos/Eventos.vue'
+import EventoDestaque from 'src/components/Eventos/Destaque.vue'
 
 export default defineComponent({
   name: 'EventosPage',
   components: {
     CadastrarComponent,
-    Eventos
-  },
-  setup () {
-    const tab = ref('anual')
-    return {
-      tab
-    }
+    Eventos,
+    EventoDestaque
   }
 })
 </script>
