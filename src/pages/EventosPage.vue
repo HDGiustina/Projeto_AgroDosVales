@@ -2,6 +2,7 @@
   <q-page>
     <EventoDestaque />
     <Eventos />
+    <Agenda />
     <CadastrarComponent type="secondary" />
   </q-page>
 </template>
@@ -11,13 +12,15 @@ import { defineComponent } from 'vue'
 import CadastrarComponent from 'src/components/CadastrarComponent.vue'
 import Eventos from 'src/components/Eventos/Eventos.vue'
 import EventoDestaque from 'src/components/Eventos/Destaque.vue'
+import Agenda from 'src/components/Eventos/Agenda.vue'
 
 export default defineComponent({
   name: 'EventosPage',
   components: {
     CadastrarComponent,
     Eventos,
-    EventoDestaque
+    EventoDestaque,
+    Agenda
   }
 })
 </script>
