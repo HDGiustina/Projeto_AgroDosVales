@@ -2,11 +2,11 @@
 .DS_Store
 .thumbs.db
 node_modules
+.vscode
 
 # Quasar core related directories
 .quasar
 /dist
-/.vscode
 
 # Cordova related directories and files
 /src-cordova/node_modules
