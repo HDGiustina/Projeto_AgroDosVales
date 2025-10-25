@@ -322,7 +322,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .agendaComponent {
-  padding: 6rem 4rem;
+  padding: 6rem 8rem;
   background-color: var(--color-gray-light);
 }
 
@@ -338,7 +338,7 @@ export default defineComponent({
   max-width: var(--limit-page-width);
   margin: auto;
   display: grid;
-  grid-template-columns: 30% 1fr;
+  grid-template-columns: 35% 1fr;
   gap: 2rem;
 }
 
