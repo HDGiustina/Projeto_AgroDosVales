@@ -1,5 +1,5 @@
 <template>
-  <q-card style="width: 40%">
+  <section >
         <q-card-section >
           <q-form id="loginForm" ref="loginForm" @submit="login" style="width: 100%" class=" column flex flex-center">
             <p class="text-h5 text-black text-bold q-mt-md">Bem-vindo à nossa plataforma!</p>
@@ -60,7 +60,7 @@
           />
           <p class="q-mt-lg cursor-pointer" @click="navegar" style="color: #B3B3B3; text-decoration: underline">Esqueci minha senha</p>
         </q-card-actions>
-      </q-card>
+      </section>
 </template>
 
 <script lang="ts">
